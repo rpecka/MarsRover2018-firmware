@@ -21,6 +21,8 @@ extern "C" {
 
 Serial pc(USBTX, USBRX);
 uint32_t pwm_ID = 400;
+float freq = 50;
+PwmOut led(D5);
 
 int main()
 {
@@ -37,9 +39,15 @@ int main()
 /*
  *  Generates a PWM signal with a duty cycle of pwm_duty/256
  */
+
 void pwm_gen(uint32_t pwm_duty)
 {
-
+    float period = 1/freq;	
+    led.period(period);
+    if (pwm_duty <= 255)
+    {
+        led.write((float)pwm_duty/255.0);
+    }
 }
 
 /*
