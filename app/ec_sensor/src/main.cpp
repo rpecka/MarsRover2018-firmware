@@ -1,8 +1,10 @@
+// Adapted from https://www.dfrobot.com/wiki/index.php/Analog_EC_Meter_SKU:DFR0300
+
 #include "mbed.h"
 #include "DS1820.h"
 
-AnalogIn ecSensor(A1);
-DS1820 tempSensor(D7);
+AnalogIn ecSensor(A1); // EC Sensor Pin
+DS1820 tempSensor(D7); // Temperature Sensor Pin
 
 float getEC();
 
@@ -16,7 +18,7 @@ int main() {
 	}
 }
 // Returns the electrical conductivity in ms/cm
-float getEC() {
+float getEC() { // TODO: Move numbers into constants
 	float voltage = ecSensor.read();
 	float temperature = tempSensor.temperature();
 	float temperatureCoefficient = 1.0 + 0.0185 * (temperature - 25.0);
